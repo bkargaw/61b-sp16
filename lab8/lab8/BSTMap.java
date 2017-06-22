@@ -8,11 +8,11 @@ import java.util.Set;
  */
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
-    private static class BST<K extends Comparable<K>,V>{
+    public static class BST<K extends Comparable<K>,V>{
         K key;
         V value;
-        BST <K,V> left = null;
-        BST<K,V> right = null;
+        public BST <K,V> left = null;
+        public BST<K,V> right = null;
         public BST(K key, V value){
             this.key = key;
             this.value = value;
@@ -77,17 +77,24 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         if (root == null){
             root = node;
         }else{
-            put(root,node);
+            put(root, node);
         }
         size++;
     }
 
     private void put(BST parent, BST child){
-        if (parent == null) parent = child;
         if (0 < parent.key.compareTo(child.key)){
-            put(parent.right,child);
-        }else{
-            put(parent.left,child);
+            if (parent.right == null){
+                parent.right = child;
+            }else{
+                put(parent.right, child);
+            }
+        }else {
+            if (parent.left == null){
+                parent.left = child;
+            }else{
+                put(parent.left, child);
+            }
         }
 
     }
